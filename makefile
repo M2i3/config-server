@@ -4,14 +4,15 @@ build:
 	docker build -t m2i3/config ./
 	
 up:
-	docker run -d -p $(DYNAMICPORT):443 --name m2i3app--config.0 -v `pwd`/certs:/etc/nginx/certs:ro -v `pwd`/sample-html-config:/usr/share/nginx/html:ro  m2i3/config
+	docker run -d -p $(DYNAMICPORT):443 --name m2i3app--dev-config.0 -v `pwd`/certs:/etc/nginx/certs:ro -v `pwd`/sample-html-config:/usr/share/nginx/html:ro  m2i3/config
 	@echo running on port $(DYNAMICPORT)
 	
 down:
-	! mappc is-container m2i3app--config.0 || docker rm -fv m2i3app--config.0
+	! mappc is-container m2i3app--dev-config.0 || docker rm -fv m2i3app--dev-config.0
 	
-create-certs:
+create-test-data:
 	mkdir -p certs
+	mkdir -p sample-html-config
 
 	# create the CA key and cert
 	cd certs && openssl genrsa -out ca.key 4096
