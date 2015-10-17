@@ -1,10 +1,11 @@
 DYNAMICPORT=$(shell mappc get-port)
+IMAGE_NAME=m2i3/config-server
 
 build:
-	docker build -t m2i3/config-server ./
+	docker build -t $(IMAGE_NAME) ./
 	
 up:
-	docker run -d -p $(DYNAMICPORT):443 --name m2i3app--dev-config.0 -v `pwd`/certs:/etc/nginx/certs:ro -v `pwd`/sample-html-config:/usr/share/nginx/html:ro  m2i3/config
+	docker run -d -p $(DYNAMICPORT):443 --name m2i3app--dev-config.0 -v `pwd`/certs:/etc/nginx/certs:ro -v `pwd`/sample-html-config:/usr/share/nginx/html:ro  $(IMAGE_NAME)
 	@echo running on port $(DYNAMICPORT)
 	
 down:
