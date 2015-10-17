@@ -1,7 +1,7 @@
 DYNAMICPORT=$(shell mappc get-port)
 
 build:
-	docker build -t m2i3/config ./
+	docker build -t m2i3/config-server ./
 	
 up:
 	docker run -d -p $(DYNAMICPORT):443 --name m2i3app--dev-config.0 -v `pwd`/certs:/etc/nginx/certs:ro -v `pwd`/sample-html-config:/usr/share/nginx/html:ro  m2i3/config
